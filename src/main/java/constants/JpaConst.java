@@ -10,7 +10,8 @@ public interface JpaConst {
     String PERSISTENCE_UNIT_NAME = "daily_report_system";
 
     //データ取得件数の最大値
-    int ROW_PER_PAGE = 15; //1ページに表示するレコードの数
+    int ROW_PER_PAGE = 10; //1ページに表示するレコードの数
+
 
     //従業員テーブル
     String TABLE_EMP = "employees"; //テーブル名
@@ -28,6 +29,7 @@ public interface JpaConst {
     int ROLE_GENERAL = 0; //管理者権限OFF(一般)
     int EMP_DEL_TRUE = 1; //削除フラグON(削除済み)
     int EMP_DEL_FALSE = 0; //削除フラグOFF(現役)
+
 
     //日報テーブル
     String TABLE_REP = "reports"; //テーブル名
