@@ -56,7 +56,7 @@
 
 
         <h3>【フォローしている社員の日報一覧】</h3>
-        <table id="report_list">
+        <table id="follow_list">
             <tbody>
                 <tr>
                     <th class="report_name">氏名</th>
@@ -64,7 +64,7 @@
                     <th class="report_title">タイトル</th>
                     <th class="report_action">操作</th>
                 </tr>
-                <c:forEach var="report" items="${reports}" varStatus="status">
+                <c:forEach var="report" items="" varStatus="status">
                     <fmt:parseDate value="${report.reportDate}" pattern="yyyy-MM-dd" var="reportDay" type="date" />
                     <tr class="row${status.count % 2}">
                         <td class="report_name"><a href="<c:url value='?action=${actRep}&command=${commShow}&id=${report.id}' />"><c:out value="${report.employee.name}" /></a></td>
@@ -77,7 +77,7 @@
         </table>
 
         <div id="pagination">
-            （全 ${reports_count} 件）<br />
+            （全 $ 件）<br />
             <c:forEach var="i" begin="1" end="${((reports_count - 1) / maxRow) + 1}" step="1">
                 <c:choose>
                     <c:when test="${i == page}">

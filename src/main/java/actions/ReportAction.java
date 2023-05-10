@@ -12,6 +12,7 @@ import constants.AttributeConst;
 import constants.ForwardConst;
 import constants.JpaConst;
 import constants.MessageConst;
+import services.EmployeeService;
 import services.ReportService;
 
 /**
@@ -21,6 +22,7 @@ import services.ReportService;
 public class ReportAction extends ActionBase {
 
     private ReportService service;
+    private EmployeeService eService;
 
     /**
      * メソッドを実行する
@@ -29,10 +31,12 @@ public class ReportAction extends ActionBase {
     public void process() throws ServletException, IOException {
 
         service = new ReportService();
+        eService = new EmployeeService();
 
         //メソッドを実行
         invoke();
         service.close();
+        eService.close();
     }
 
     /**
@@ -234,6 +238,31 @@ public class ReportAction extends ActionBase {
 
             }
         }
+    }
+
+    public void showUser() throws ServletException, IOException {
+
+        EmployeeView ev = eService.findOne(Integer.parseInt(getRequestParam(AttributeConst.EMP_ID)));
+
+        int page = getPage();
+        List<ReportView> reports = service.getMinePerPage(ev, page);
+
+        long myReportsCount = service.countAllMine(ev);
+
+        putRequestScope(AttributeConst.EMPLOYEE, ev);
+        putRequestScope(AttributeConst.REPORTS, reports);
+        putRequestScope(AttributeConst.REP_COUNT, myReportsCount);
+        putRequestScope(AttributeConst.PAGE, page);
+        putRequestScope(AttributeConst.MAX_ROW, JpaConst.ROW_PER_PAGE);
+
+
+        String flush = getSessionScope(AttributeConst.FLUSH);
+        if (flush != null) {
+            putRequestScope(AttributeConst.FLUSH, flush);
+            removeSessionScope(AttributeConst.FLUSH);
+        }
+
+        forward(ForwardConst.FW_REP_USER);
     }
 
 }
