@@ -47,8 +47,8 @@ public interface JpaConst {
     String TABLE_FOL = "follows";//テーブル名
     //フォローテーブルカラム
     String FOL_COL_ID = "id";//id
-    String FOL_COL_EMP = "employee_id";//フォローした従業員のid
-    String FOL_COL_FOLLOWED = "followed_id";//フォローされた従業員のid
+    String FOL_COL_FROM_ID = "follow_from_id";//フォローした従業員のid
+    String FOL_COL_TO_ID = "follow_to_id";//フォローされた従業員のid
     String FOL_COL_CREATED_AT = "created_at";//登録日時
     String FOL_COL_UPDATED_AT = "updated_at";//更新日時
 
@@ -62,6 +62,9 @@ public interface JpaConst {
     String JPQL_PARM_CODE = "code"; //社員番号
     String JPQL_PARM_PASSWORD = "password"; //パスワード
     String JPQL_PARM_EMPLOYEE = "employee"; //従業員
+    String JPQL_PARM_FOLLOWFROM = "followFrom";
+    String JPQL_PARM_FOLLOWTO = "followTo";
+    String JPQL_PARM_FOLLOWLIST = "followList";
 
     //NamedQueryの nameとquery
     //全ての従業員をidの降順に取得する
@@ -85,7 +88,23 @@ public interface JpaConst {
     //指定した従業員が作成した日報を全件idの降順で取得する
     String Q_REP_GET_ALL_MINE = ENTITY_REP + ".getAllMine";
     String Q_REP_GET_ALL_MINE_DEF = "SELECT r FROM Report AS r WHERE r.employee = :" + JPQL_PARM_EMPLOYEE + " ORDER BY r.id DESC";
+    //ログイン中の従業員がフォローしている従業員が作成した日報を全件idの降順で取得する
+    String Q_REP_GET_FOLLOW = ENTITY_REP + ".getFollowReport";
+    String Q_REP_GET_FOLLOW_DEF = "SELECT r FROM Report AS r WHERE r.employee.id IN :" + JPQL_PARM_FOLLOWLIST + " ORDER BY r.id DESC";
     //指定した従業員が作成した日報の件数を取得する
     String Q_REP_COUNT_ALL_MINE = ENTITY_REP + ".countAllMine";
     String Q_REP_COUNT_ALL_MINE_DEF = "SELECT COUNT(r) FROM Report AS r WHERE r.employee = :" + JPQL_PARM_EMPLOYEE;
+
+    String Q_REP_COUNT_ALL_FOLLOW = ENTITY_REP + ".countAllFollow";
+    String Q_REP_COUNT_ALL_FOLLOW_DEF = "SELECT COUNT(r) FROM Report AS r WHERE r.employee.id IN :" + JPQL_PARM_FOLLOWLIST;
+
+    //ログイン中のユーザーがフォローしている従業員のレコードを取得
+    String Q_FOL_CHECK_FOLLOW = ENTITY_FOL + ".followCheck";
+    String Q_FOL_CHECK_FOLLOW_DEF = "SELECT f FROM Follow f WHERE f.followFromId = :" + JPQL_PARM_FOLLOWFROM + " AND f.followToId = :" + JPQL_PARM_FOLLOWTO;
+    //フォローを解除する
+    String Q_FOL_UNFOLLOW = ENTITY_FOL + ".unFollow";
+    String Q_FOL_UNFOLLOW_DEF = "DELETE FROM Follow f WHERE f.followFromId = :" + JpaConst.JPQL_PARM_FOLLOWFROM + " AND f.followToId = :" + JpaConst.JPQL_PARM_FOLLOWTO;
+    //ログイン中のユーザーがフォローしている全ての従業員のidを取得
+    String Q_FOL_GET_FOL = ENTITY_FOL + ".getAllFollow";
+    String Q_FOL_GET_FOL_DEF = "SELECT f.followToId FROM Follow f WHERE f.followFromId = :" + JPQL_PARM_FOLLOWFROM;
 }
