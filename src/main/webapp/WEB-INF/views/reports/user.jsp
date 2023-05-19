@@ -7,6 +7,8 @@
 <c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue()}" />
 <c:set var="commShow" value="${ForwardConst.CMD_SHOW.getValue()}" />
 <c:set var="commNew" value="${ForwardConst.CMD_NEW.getValue()}" />
+<c:set var="commFol" value="${ForwardConst.CMD_FOLLOW.getValue()}" />
+<c:set var="commUnFol" value="${ForwardConst.CMD_UNFOLLOW.getValue()}" />
 
 <c:import url="/WEB-INF/views/layout/app.jsp">
     <c:param name="content">
@@ -15,7 +17,20 @@
                 <c:out value="${flush}"></c:out>
             </div>
         </c:if>
+
         <h2><c:out value="${employee.name}" /> さんの日報一覧</h2>
+
+        <c:if test="${sessionScope.login_employee.id != employee.id}">
+            <c:choose>
+                <c:when test="${is_follow == false}">
+                    <a href="<c:url value='?action=${actRep}&command=${commFol}&id=${employee.id}' />">フォローする</a>
+                </c:when>
+                <c:otherwise>
+                    <a href="<c:url value='?action=${actRep}&command=${commUnFol}&id=${employee.id}' />">フォロー中</a>
+                </c:otherwise>
+            </c:choose>
+        </c:if>
+
         <table id="report_list">
             <tbody>
                 <tr>
@@ -48,5 +63,8 @@
                 </c:choose>
             </c:forEach>
         </div>
+        <p>
+            <a href="<c:url value='?action=${actRep}&command=${commIdx}' />">一覧に戻る</a>
+        </p>
     </c:param>
 </c:import>
