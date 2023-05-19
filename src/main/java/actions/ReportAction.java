@@ -7,12 +7,14 @@ import java.util.List;
 import javax.servlet.ServletException;
 
 import actions.views.EmployeeView;
+import actions.views.FollowView;
 import actions.views.ReportView;
 import constants.AttributeConst;
 import constants.ForwardConst;
 import constants.JpaConst;
 import constants.MessageConst;
 import services.EmployeeService;
+import services.FollowService;
 import services.ReportService;
 
 /**
@@ -23,6 +25,7 @@ public class ReportAction extends ActionBase {
 
     private ReportService service;
     private EmployeeService eService;
+    private FollowService fService;
 
     /**
      * メソッドを実行する
@@ -32,11 +35,13 @@ public class ReportAction extends ActionBase {
 
         service = new ReportService();
         eService = new EmployeeService();
+        fService = new FollowService();
 
         //メソッドを実行
         invoke();
         service.close();
         eService.close();
+        fService.close();
     }
 
     /**
@@ -242,13 +247,17 @@ public class ReportAction extends ActionBase {
 
     public void showUser() throws ServletException, IOException {
 
+        EmployeeView login = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
         EmployeeView ev = eService.findOne(Integer.parseInt(getRequestParam(AttributeConst.EMP_ID)));
+
+        boolean isFollow = fService.followCheck(login.getId(), ev.getId());
 
         int page = getPage();
         List<ReportView> reports = service.getMinePerPage(ev, page);
 
         long myReportsCount = service.countAllMine(ev);
 
+        putRequestScope(AttributeConst.IS_FOLLOW, isFollow);
         putRequestScope(AttributeConst.EMPLOYEE, ev);
         putRequestScope(AttributeConst.REPORTS, reports);
         putRequestScope(AttributeConst.REP_COUNT, myReportsCount);
@@ -265,4 +274,32 @@ public class ReportAction extends ActionBase {
         forward(ForwardConst.FW_REP_USER);
     }
 
+    public void follow() throws ServletException, IOException {
+        EmployeeView followFrom = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
+        EmployeeView followTo = eService.findOne(Integer.parseInt(getRequestParam(AttributeConst.EMP_ID)));
+
+        FollowView fv = new FollowView(
+                followFrom.getId(),
+                followTo.getId(),
+                null,
+                null);
+
+        fService.follow(fv);
+
+        putSessionScope(AttributeConst.FLUSH, MessageConst.I_FOLLOW.getMessage());
+
+        showUser();
+
+    }
+
+    public void unfollow() throws ServletException, IOException {
+        EmployeeView followFrom = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
+        EmployeeView followTo = eService.findOne(Integer.parseInt(getRequestParam(AttributeConst.EMP_ID)));
+
+        fService.unFollow(followFrom.getId(), followTo.getId());
+
+        putSessionScope(AttributeConst.FLUSH, MessageConst.I_UNFOLLOW.getMessage());
+
+        showUser();
+    }
 }
