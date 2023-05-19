@@ -10,6 +10,8 @@ import actions.views.ReportView; //追記
 import constants.AttributeConst;
 import constants.ForwardConst;
 import constants.JpaConst;  //追記
+import services.EmployeeService;
+import services.FollowService;
 import services.ReportService;  //追記
 
 /**
@@ -18,7 +20,9 @@ import services.ReportService;  //追記
  */
 public class TopAction extends ActionBase {
 
-    private ReportService service; //追記
+    private ReportService service;
+    private FollowService fService;
+    private EmployeeService eService;
 
     /**
      * indexメソッドを実行する
@@ -27,12 +31,15 @@ public class TopAction extends ActionBase {
     public void process() throws ServletException, IOException {
 
         service = new ReportService(); //追記
+        fService = new FollowService();
+        eService = new EmployeeService();
 
         //メソッドを実行
         invoke();
 
         service.close(); //追記
-
+        fService.close();
+        eService.close();
     }
 
     /**
@@ -57,7 +64,17 @@ public class TopAction extends ActionBase {
         putRequestScope(AttributeConst.PAGE, page); //ページ数
         putRequestScope(AttributeConst.MAX_ROW, JpaConst.ROW_PER_PAGE); //1ページに表示するレコードの数
 
-        //↑ここまで追記
+
+        //ログイン中の従業員がフォローしている従業員のidを取得
+        List<Integer> followList = fService.getFollowList(loginEmployee.getId());
+        int followPage = getPage();
+        List<ReportView> followReports = service.getFollowReport(followList, followPage);
+
+        long followReportsCount = service.countFollowReport(followList);
+
+        putRequestScope(AttributeConst.FOL_REPORTS, followReports);
+        putRequestScope(AttributeConst.FOL_REP_COUNT, followReportsCount);
+        putRequestScope(AttributeConst.FOL_PAGE, followPage);
 
         //セッションにフラッシュメッセージが設定されている場合はリクエストスコープに移し替え、セッションからは削除する
         String flush = getSessionScope(AttributeConst.FLUSH);
