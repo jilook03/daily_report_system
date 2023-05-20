@@ -23,10 +23,10 @@
         <c:if test="${sessionScope.login_employee.id != employee.id}">
             <c:choose>
                 <c:when test="${is_follow == false}">
-                    <a href="<c:url value='?action=${actRep}&command=${commFol}&id=${employee.id}' />">フォローする</a>
+                    <a href="<c:url value='?action=${actRep}&command=${commFol}&id=${employee.id}' />" >フォローする</a>
                 </c:when>
                 <c:otherwise>
-                    <a href="<c:url value='?action=${actRep}&command=${commUnFol}&id=${employee.id}' />">フォロー中</a>
+                    <a href="<c:url value='?action=${actRep}&command=${commUnFol}&id=${employee.id}' />" >フォロー中</a>
                 </c:otherwise>
             </c:choose>
         </c:if>

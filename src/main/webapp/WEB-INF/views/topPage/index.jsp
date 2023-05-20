@@ -49,7 +49,8 @@
                         <c:out value="${i}" />&nbsp;
                     </c:when>
                     <c:otherwise>
-                        <a href="<c:url value='?action=${actTop}&command=${commIdx}&page=${i}' />"><c:out value="${i}" /></a>&nbsp;
+                        <c:set var="j" value="${follow_page}"></c:set>
+                        <a href="<c:url value='?action=${actTop}&command=${commIdx}&page=${i}&follow_page=${j}' />"><c:out value="${i}" /></a>&nbsp;
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
@@ -79,13 +80,14 @@
 
         <div id="pagination">
             （全 ${follow_reports_count} 件）<br />
-            <c:forEach var="i" begin="1" end="${((follow_reports_count - 1) / maxRow) + 1}" step="1">
+            <c:forEach var="j" begin="1" end="${((follow_reports_count - 1) / maxRow) + 1}" step="1">
                 <c:choose>
-                    <c:when test="${i == follow_page}">
-                        <c:out value="${i}" />&nbsp;
+                    <c:when test="${j == follow_page}">
+                        <c:out value="${j}" />&nbsp;
                     </c:when>
                     <c:otherwise>
-                        <a href="<c:url value='?action=${actTop}&command=${commIdx}&page=${i}' />"><c:out value="${i}" /></a>&nbsp;
+                        <c:set var="i" value="${page}"></c:set>
+                        <a href="<c:url value='?action=${actTop}&command=${commIdx}&page=${i}&follow_page=${j}' />"><c:out value="${j}" /></a>&nbsp;
                     </c:otherwise>
                 </c:choose>
             </c:forEach>

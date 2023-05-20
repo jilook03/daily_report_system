@@ -159,6 +159,15 @@ public abstract class ActionBase {
         return page;
     }
 
+    protected int getPageFol() {
+        int page;
+        page = toNumber(request.getParameter(AttributeConst.FOL_PAGE.getValue()));
+        if (page == Integer.MIN_VALUE) {
+            page = 1;
+        }
+        return page;
+    }
+
     /**
      * 文字列を数値に変換する
      * @param strNumber 変換前文字列

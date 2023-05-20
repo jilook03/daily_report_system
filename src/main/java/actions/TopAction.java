@@ -67,7 +67,7 @@ public class TopAction extends ActionBase {
 
         //ログイン中の従業員がフォローしている従業員のidを取得
         List<Integer> followList = fService.getFollowList(loginEmployee.getId());
-        int followPage = getPage();
+        int followPage = getPageFol();
         List<ReportView> followReports = service.getFollowReport(followList, followPage);
 
         long followReportsCount = service.countFollowReport(followList);
