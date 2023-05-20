@@ -24,10 +24,10 @@
                 <c:if test="${sessionScope.login_employee.id != employee.id}" >
                     <c:choose>
                         <c:when test="${is_follow == false}">
-                            <a href="<c:url value='?action=${actRep}&command=${commFol}&id=${employee.id}' />" class="btn_fol">フォローする</a>
+                            <a class="btn_fol" href="<c:url value='?action=${actRep}&command=${commFol}&id=${employee.id}' />" >フォローする</a>
                         </c:when>
                         <c:otherwise>
-                            <a href="<c:url value='?action=${actRep}&command=${commUnFol}&id=${employee.id}' />" class="btn_unFol">フォロー中</a>
+                            <a class="btn_unFol" href="<c:url value='?action=${actRep}&command=${commUnFol}&id=${employee.id}' />" >フォロー中</a>
                         </c:otherwise>
                     </c:choose>
                 </c:if>
@@ -58,10 +58,10 @@
             <c:forEach var="i" begin="1" end="${((reports_count - 1) / maxRow) + 1}" step="1">
                 <c:choose>
                     <c:when test="${i == page}">
-                        <c:out value="${i}" />&nbsp;
+                        <a class="page_now"><c:out value="${i}" /></a>
                     </c:when>
                     <c:otherwise>
-                        <a href="<c:url value='?action=${actRep}&command=${commIdx}&page=${i}' />"><c:out value="${i}" /></a>&nbsp;
+                        <a class="page_link" href="<c:url value='?action=${actRep}&command=${commIdx}&page=${i}' />"><c:out value="${i}" /></a>
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
