@@ -24,7 +24,7 @@ h1 {
 
 h2 {
     font-size: 36px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 li {
@@ -64,6 +64,42 @@ td {
 button {
     font-size: 14px;
     padding: 5px 10px;
+}
+
+.btn_fol {
+  display       : inline-block;
+  border-radius : 5%;
+  font-size     : 13pt;
+  text-align    : center;
+  cursor        : pointer;
+  padding       : 6px 10px;
+  background    : #ffffff;
+  color         : #333333;
+  line-height   : 1em;
+  border        : 2px solid #333333;
+  margin-bottom: 5px;
+}
+.btn_fol:hover {
+  color         : #ffffff;
+  background    : #333333;
+}
+
+.btn_unFol {
+  display       : inline-block;
+  border-radius : 5%;
+  font-size     : 13pt;
+  text-align    : center;
+  cursor        : pointer;
+  padding       : 6px 10px;
+  background    : #333333;
+  color         : #ffffff;
+  line-height   : 1em;
+  border        : 2px solid #333333;
+  margin-bottom: 5px;
+}
+.btn_unFol:hover {
+  color         : #333333;
+  background    : #ffffff;
 }
 
 #footer {
@@ -159,3 +195,13 @@ h3 {
     font-size: larger;
 }
 
+.user_report_title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+#report_list_title {
+    font-size: 36px;
+    margin-right: 50px;
+}

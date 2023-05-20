@@ -18,18 +18,21 @@
             </div>
         </c:if>
 
-        <h2><c:out value="${employee.name}" /> さんの日報一覧</h2>
-
-        <c:if test="${sessionScope.login_employee.id != employee.id}">
-            <c:choose>
-                <c:when test="${is_follow == false}">
-                    <a href="<c:url value='?action=${actRep}&command=${commFol}&id=${employee.id}' />" >フォローする</a>
-                </c:when>
-                <c:otherwise>
-                    <a href="<c:url value='?action=${actRep}&command=${commUnFol}&id=${employee.id}' />" >フォロー中</a>
-                </c:otherwise>
-            </c:choose>
-        </c:if>
+        <div class="user_report_title">
+            <div id="report_list_title"><c:out value="${employee.name}" /> さんの日報一覧</div>
+            <div>
+                <c:if test="${sessionScope.login_employee.id != employee.id}" >
+                    <c:choose>
+                        <c:when test="${is_follow == false}">
+                            <a href="<c:url value='?action=${actRep}&command=${commFol}&id=${employee.id}' />" class="btn_fol">フォローする</a>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="<c:url value='?action=${actRep}&command=${commUnFol}&id=${employee.id}' />" class="btn_unFol">フォロー中</a>
+                        </c:otherwise>
+                    </c:choose>
+                </c:if>
+            </div>
+        </div>
 
         <table id="report_list">
             <tbody>
