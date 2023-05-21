@@ -16,6 +16,7 @@
             </div>
         </c:if>
         <h2>従業員一覧</h2>
+        <p><a class="btn_link" href="<c:url value='?action=${actEmp}&command=${commNew}' />">新規従業員の登録</a></p>
         <table id="employee_list">
             <tbody>
                 <tr>
@@ -43,7 +44,7 @@
         </table>
 
         <div id="pagination">
-            （全 ${employees_count} 件）<br />
+            <a class="rep_count">全 ${employees_count} 件</a><br />
             <c:forEach var="i" begin="1" end="${((employees_count - 1) / maxRow) + 1}" step="1">
                 <c:choose>
                     <c:when test="${i == page}">
@@ -55,7 +56,5 @@
                 </c:choose>
             </c:forEach>
         </div>
-        <p><a href="<c:url value='?action=${actEmp}&command=${commNew}' />">新規従業員の登録</a></p>
-
     </c:param>
 </c:import>

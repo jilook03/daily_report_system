@@ -19,7 +19,7 @@
         </form>
 
         <p>
-            <a href="#" onclick="confirmDestroy();">この従業員情報を削除する</a>
+            <a class="edit_link" href="#" onclick="confirmDestroy();">この従業員情報を削除する</a>
         </p>
         <form method="POST"
             action="<c:url value='?action=${action}&command=${commDel}' />">
@@ -35,7 +35,7 @@
         </script>
 
         <p>
-            <a href="<c:url value='?action=${action}&command=${commIdx}' />">一覧に戻る</a>
+            <a class="btn_link" href="<c:url value='?action=${action}&command=${commIdx}' />">一覧に戻る</a>
         </p>
     </c:param>
 </c:import>

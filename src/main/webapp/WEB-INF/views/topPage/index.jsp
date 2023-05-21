@@ -19,9 +19,9 @@
                 <c:out value="${flush}"></c:out>
             </div>
         </c:if>
-
         <h2>日報管理システムへようこそ</h2>
-        <h3>【自分の日報一覧】</h3>
+        <p><a class="btn_link" href="<c:url value='?action=${actRep}&command=${commNew}' />">新規日報の登録</a></p>
+        <h3 class="sub_title">自分の日報一覧</h3>
         <table id="report_list">
             <tbody>
                 <tr>
@@ -41,7 +41,7 @@
         </table>
 
         <div id="pagination">
-            （全 ${reports_count} 件）<br />
+            <a class="rep_count">全 ${reports_count} 件</a><br />
             <c:forEach var="i" begin="1" end="${((reports_count - 1) / maxRow) + 1}" step="1">
                 <c:choose>
                     <c:when test="${i == page}">
@@ -56,7 +56,7 @@
         </div>
         <p></p>
 
-        <h3>【フォローしている社員の日報一覧】</h3>
+        <h3 class="sub_title">フォローしている社員の日報一覧</h3>
         <table id="report_list">
             <tbody>
                 <tr>
@@ -78,7 +78,7 @@
         </table>
 
         <div id="pagination">
-            （全 ${follow_reports_count} 件）<br />
+            <a class="rep_count">全 ${follow_reports_count} 件</a><br />
             <c:forEach var="j" begin="1" end="${((follow_reports_count - 1) / maxRow) + 1}" step="1">
                 <c:choose>
                     <c:when test="${j == follow_page}">
@@ -92,7 +92,5 @@
             </c:forEach>
         </div>
 
-
-        <p><a href="<c:url value='?action=${actRep}&command=${commNew}' />">新規日報の登録</a></p>
     </c:param>
 </c:import>

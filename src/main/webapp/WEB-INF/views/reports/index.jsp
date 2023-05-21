@@ -17,6 +17,7 @@
             </div>
         </c:if>
         <h2>日報一覧</h2>
+        <p><a class="btn_link" href="<c:url value='?action=${actRep}&command=${commNew}' />">新規日報の登録</a></p>
         <table id="report_list">
             <tbody>
                 <tr>
@@ -39,7 +40,7 @@
         </table>
 
         <div id="pagination">
-            （全 ${reports_count} 件）<br />
+            <a class="rep_count">全 ${reports_count} 件</a><br />
             <c:forEach var="i" begin="1" end="${((reports_count - 1) / maxRow) + 1}" step="1">
                 <c:choose>
                     <c:when test="${i == page}">
@@ -51,7 +52,5 @@
                 </c:choose>
             </c:forEach>
         </div>
-        <p><a href="<c:url value='?action=${actRep}&command=${commNew}' />">新規日報の登録</a></p>
-
     </c:param>
 </c:import>

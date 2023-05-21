@@ -19,7 +19,9 @@
         </c:if>
 
         <div class="user_report_title">
-            <div id="report_list_title"><c:out value="${employee.name}" /> さんの日報一覧</div>
+            <div id="report_list_title">
+                <c:out value="${employee.name}" /> さんの日報一覧
+            </div>
             <div>
                 <c:if test="${sessionScope.login_employee.id != employee.id}" >
                     <c:choose>
@@ -54,7 +56,7 @@
         </table>
 
         <div id="pagination">
-            （全 ${reports_count} 件）<br />
+            <a class="rep_count">全 ${reports_count} 件</a><br />
             <c:forEach var="i" begin="1" end="${((reports_count - 1) / maxRow) + 1}" step="1">
                 <c:choose>
                     <c:when test="${i == page}">
@@ -67,7 +69,7 @@
             </c:forEach>
         </div>
         <p>
-            <a href="<c:url value='?action=${actRep}&command=${commIdx}' />">一覧に戻る</a>
+            <a class="btn_link" href="<c:url value='?action=${actRep}&command=${commIdx}' />">一覧に戻る</a>
         </p>
     </c:param>
 </c:import>

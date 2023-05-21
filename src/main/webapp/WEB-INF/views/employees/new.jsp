@@ -14,6 +14,6 @@
             <c:import url="_form.jsp" />
         </form>
 
-        <p><a href="<c:url value='?action=${action}&command=${commIdx}' />">一覧に戻る</a></p>
+        <p><a class="btn_link" href="<c:url value='?action=${action}&command=${commIdx}' />">一覧に戻る</a></p>
     </c:param>
 </c:import>
