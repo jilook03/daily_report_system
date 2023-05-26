@@ -311,12 +311,13 @@ public class ReportAction extends ActionBase {
         String name = getRequestParam(AttributeConst.SEA_NAME);
         String from = getRequestParam(AttributeConst.SEA_DATE_FROM);
         String to = getRequestParam(AttributeConst.SEA_DATE_TO);
+        String title = getRequestParam(AttributeConst.SEA_TITLE);
 
         int page = getPage();
 
-        if (!"".equals(name) && name != null || !"".equals(from) && from != null || !"".equals(to) && to != null) {
+        if (!"".equals(name) && name != null || !"".equals(from) && from != null || !"".equals(to) && to != null || !"".equals(title) && title != null) {
 
-            List<ReportView> reports = service.searchReport(name,from,to);
+            List<ReportView> reports = service.searchReport(name,from,to,title);
             int reportsCount = reports.size();
 
             putRequestScope(AttributeConst.REPORTS, reports);
@@ -335,6 +336,7 @@ public class ReportAction extends ActionBase {
         }
 
         putRequestScope(AttributeConst.SEA_NAME, name);
+        putRequestScope(AttributeConst.SEA_TITLE, title);
         putRequestScope(AttributeConst.PAGE, page);
         putRequestScope(AttributeConst.MAX_ROW, JpaConst.ROW_PER_PAGE);
 

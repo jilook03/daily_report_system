@@ -12,19 +12,18 @@
     </div>
 </c:if>
 
-<label>氏名:</label>
+<label>氏名:</label><br />
 <input type="text" name="${AttributeConst.SEA_NAME.getValue()}" id="${AttributeConst.SEA_NAME.getValue()}" value="${search_name}" />
 <br /><br />
 
-<label>日付:</label>
+<label>日付:</label><br />
 <input type="date" name="${AttributeConst.SEA_DATE_FROM.getValue()}" id="${AttributeConst.SEA_DATE_FROM.getValue()}" value="<fmt:formatDate value='${search_date_from}' pattern='yyyy-MM-dd' />" />
 <a> ～ </a>
 <input type="date" name="${AttributeConst.SEA_DATE_TO.getValue()}" id="${AttributeConst.SEA_DATE_TO.getValue()}" value="<fmt:formatDate value='${search_date_to}' pattern='yyyy-MM-dd' />" />
 <br /><br />
 
-<%--
-<label for="${AttributeConst.REP_TITLE.getValue()}">タイトル</label><br />
-<input type="text" name="${AttributeConst.REP_TITLE.getValue()}" id="${AttributeConst.REP_TITLE.getValue()}" value="${report.title}" />
+<label>タイトル:</label><br />
+<input type="text" name="${AttributeConst.SEA_TITLE.getValue()}" id="${AttributeConst.SEA_TITLE.getValue()}" value="${search_title}" />
 <br /><br />
---%>
+
 <button type="submit">検索</button>

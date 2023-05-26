@@ -50,15 +50,17 @@ public enum AttributeConst {
     REP_TITLE("title"),
     REP_CONTENT("content_msg"),
 
+    //フォロー機能
     FOL_REPORTS("follow_reports"),
     FOL_REP_COUNT("follow_reports_count"),
     FOL_PAGE("follow_page"),
-
     IS_FOLLOW("is_follow"),
 
+    //検索機能
     SEA_NAME("search_name"),
     SEA_DATE_FROM("search_date_from"),
-    SEA_DATE_TO("search_date_to");
+    SEA_DATE_TO("search_date_to"),
+    SEA_TITLE("search_title");
 
 
 

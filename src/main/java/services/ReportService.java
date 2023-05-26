@@ -46,13 +46,14 @@ public class ReportService extends ServiceBase {
     }
 
     @SuppressWarnings("unchecked")
-    public List<ReportView> searchReport(String name, String from, String to) {
+    public List<ReportView> searchReport(String name, String from, String to, String title) {
 
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT r From Report AS r WHERE ");
         boolean nameFlg = false;
         boolean fromFlg = false;
         boolean toFlg = false;
+        boolean titleFlg = false;
         boolean andFlg = false;
 
         if (!"".equals(name) && name != null) {
@@ -72,11 +73,17 @@ public class ReportService extends ServiceBase {
             toFlg = true;
             andFlg = true;
         }
+        if (!"".equals(title) && title != null) {
+            if (andFlg) sql.append(" AND ");
+            sql.append("r.title LIKE :title");
+            titleFlg = true;
+        }
 
         Query query = em.createQuery(sql.toString());
         if(nameFlg) query.setParameter("name", "%" + name + "%");
         if(fromFlg) query.setParameter("from", LocalDate.parse(from));
         if(toFlg) query.setParameter("to", LocalDate.parse(to));
+        if(titleFlg) query.setParameter("title", "%" + title + "%");
 
         List<Report> reports = query.getResultList();
 
