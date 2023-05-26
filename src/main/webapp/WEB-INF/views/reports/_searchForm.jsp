@@ -12,15 +12,16 @@
     </div>
 </c:if>
 
-
-<%--<fmt:parseDate value="${report.reportDate}" pattern="yyyy-MM-dd" var="reportDay" type="date" />
-<label for="${AttributeConst.REP_DATE.getValue()}">日付</label><br />
-<input type="date" name="${AttributeConst.REP_DATE.getValue()}" id="${AttributeConst.REP_DATE.getValue()}" value="<fmt:formatDate value='${reportDay}' pattern='yyyy-MM-dd' />" />
-<br /><br />
---%>
 <label>氏名:</label>
-<input type="text" name="${AttributeConst.SEARCH_NAME.getValue()}" id="${AttributeConst.SEARCH_NAME.getValue()}" value="${search_name}" />
+<input type="text" name="${AttributeConst.SEA_NAME.getValue()}" id="${AttributeConst.SEA_NAME.getValue()}" value="${search_name}" />
 <br /><br />
+
+<label>日付:</label>
+<input type="date" name="${AttributeConst.SEA_DATE_FROM.getValue()}" id="${AttributeConst.SEA_DATE_FROM.getValue()}" value="<fmt:formatDate value='${search_date_from}' pattern='yyyy-MM-dd' />" />
+<a> ～ </a>
+<input type="date" name="${AttributeConst.SEA_DATE_TO.getValue()}" id="${AttributeConst.SEA_DATE_TO.getValue()}" value="<fmt:formatDate value='${search_date_to}' pattern='yyyy-MM-dd' />" />
+<br /><br />
+
 <%--
 <label for="${AttributeConst.REP_TITLE.getValue()}">タイトル</label><br />
 <input type="text" name="${AttributeConst.REP_TITLE.getValue()}" id="${AttributeConst.REP_TITLE.getValue()}" value="${report.title}" />

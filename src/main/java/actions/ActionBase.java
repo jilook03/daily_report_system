@@ -3,7 +3,10 @@ package actions;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -193,6 +196,13 @@ public abstract class ActionBase {
             return LocalDate.now();
         }
         return LocalDate.parse(strDate);
+    }
+
+    //文字列をDate型に変換する
+    protected Date toDate(String strDate) throws ParseException {
+        String pattern = "yyyy-MM-dd";
+        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+        return sdf.parse(strDate);
     }
 
     /**

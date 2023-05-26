@@ -1,6 +1,7 @@
 package actions;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -305,23 +306,35 @@ public class ReportAction extends ActionBase {
         showUser();
     }
 
-    public void search() throws ServletException, IOException {
+    public void search() throws ServletException, IOException, ParseException {
 
-        String name = getRequestParam(AttributeConst.SEARCH_NAME);
+        String name = getRequestParam(AttributeConst.SEA_NAME);
+        String from = getRequestParam(AttributeConst.SEA_DATE_FROM);
+        String to = getRequestParam(AttributeConst.SEA_DATE_TO);
+
         int page = getPage();
 
-        if (!"".equals(name) && name != null) {
-            List<ReportView> reports = service.searchReport(name);
-            putRequestScope(AttributeConst.REPORTS, reports);
+        if (!"".equals(name) && name != null || !"".equals(from) && from != null || !"".equals(to) && to != null) {
+
+            List<ReportView> reports = service.searchReport(name,from,to);
             int reportsCount = reports.size();
+
+            putRequestScope(AttributeConst.REPORTS, reports);
             putRequestScope(AttributeConst.REP_COUNT, reportsCount);
             putRequestScope(AttributeConst.FLUSH, null);
+
+            if (!"".equals(from) && from != null) {
+                putRequestScope(AttributeConst.SEA_DATE_FROM, toDate(from));
+            }
+            if (!"".equals(to) && to != null) {
+                putRequestScope(AttributeConst.SEA_DATE_TO, toDate(to));
+            }
             if (reportsCount == 0) {
                 putRequestScope(AttributeConst.FLUSH, MessageConst.E_NORESULT.getMessage());
             }
         }
 
-        putRequestScope(AttributeConst.SEARCH_NAME, name);
+        putRequestScope(AttributeConst.SEA_NAME, name);
         putRequestScope(AttributeConst.PAGE, page);
         putRequestScope(AttributeConst.MAX_ROW, JpaConst.ROW_PER_PAGE);
 

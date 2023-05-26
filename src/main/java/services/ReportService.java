@@ -1,5 +1,6 @@
 package services;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -45,19 +46,37 @@ public class ReportService extends ServiceBase {
     }
 
     @SuppressWarnings("unchecked")
-    public List<ReportView> searchReport(String name) {
+    public List<ReportView> searchReport(String name, String from, String to) {
 
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT r From Report AS r WHERE ");
         boolean nameFlg = false;
+        boolean fromFlg = false;
+        boolean toFlg = false;
+        boolean andFlg = false;
 
         if (!"".equals(name) && name != null) {
             sql.append("r.employee.name LIKE :name ");
             nameFlg = true;
+            andFlg = true;
+        }
+        if (!"".equals(from) && from != null) {
+            if (andFlg) sql.append(" AND ");
+            sql.append("r.reportDate >= :from ");
+            fromFlg = true;
+            andFlg = true;
+        }
+        if (!"".equals(to) && to != null) {
+            if (andFlg) sql.append(" AND ");
+            sql.append("r.reportDate <= :to ");
+            toFlg = true;
+            andFlg = true;
         }
 
         Query query = em.createQuery(sql.toString());
         if(nameFlg) query.setParameter("name", "%" + name + "%");
+        if(fromFlg) query.setParameter("from", LocalDate.parse(from));
+        if(toFlg) query.setParameter("to", LocalDate.parse(to));
 
         List<Report> reports = query.getResultList();
 

@@ -56,7 +56,10 @@ public enum AttributeConst {
 
     IS_FOLLOW("is_follow"),
 
-    SEARCH_NAME("search_name");
+    SEA_NAME("search_name"),
+    SEA_DATE_FROM("search_date_from"),
+    SEA_DATE_TO("search_date_to");
+
 
 
     private final String text;
