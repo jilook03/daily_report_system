@@ -275,6 +275,7 @@ public class ReportAction extends ActionBase {
     }
 
     public void follow() throws ServletException, IOException {
+
         EmployeeView followFrom = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
         EmployeeView followTo = eService.findOne(Integer.parseInt(getRequestParam(AttributeConst.EMP_ID)));
 
@@ -286,20 +287,44 @@ public class ReportAction extends ActionBase {
 
         fService.follow(fv);
 
-        putSessionScope(AttributeConst.FLUSH, MessageConst.I_FOLLOW.getMessage());
+        putRequestScope(AttributeConst.FLUSH, MessageConst.I_FOLLOW.getMessage());
 
         showUser();
 
     }
 
     public void unfollow() throws ServletException, IOException {
+
         EmployeeView followFrom = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
         EmployeeView followTo = eService.findOne(Integer.parseInt(getRequestParam(AttributeConst.EMP_ID)));
 
         fService.unFollow(followFrom.getId(), followTo.getId());
 
-        putSessionScope(AttributeConst.FLUSH, MessageConst.I_UNFOLLOW.getMessage());
+        putRequestScope(AttributeConst.FLUSH, MessageConst.I_UNFOLLOW.getMessage());
 
         showUser();
+    }
+
+    public void search() throws ServletException, IOException {
+
+        String name = getRequestParam(AttributeConst.SEARCH_NAME);
+        int page = getPage();
+
+        if (!"".equals(name) && name != null) {
+            List<ReportView> reports = service.searchReport(name);
+            putRequestScope(AttributeConst.REPORTS, reports);
+            int reportsCount = reports.size();
+            putRequestScope(AttributeConst.REP_COUNT, reportsCount);
+            putRequestScope(AttributeConst.FLUSH, null);
+            if (reportsCount == 0) {
+                putRequestScope(AttributeConst.FLUSH, MessageConst.E_NORESULT.getMessage());
+            }
+        }
+
+        putRequestScope(AttributeConst.SEARCH_NAME, name);
+        putRequestScope(AttributeConst.PAGE, page);
+        putRequestScope(AttributeConst.MAX_ROW, JpaConst.ROW_PER_PAGE);
+
+        forward(ForwardConst.FW_REP_SEARCH);
     }
 }

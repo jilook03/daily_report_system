@@ -13,24 +13,17 @@
 </c:if>
 
 
-<fmt:parseDate value="${report.reportDate}" pattern="yyyy-MM-dd" var="reportDay" type="date" />
+<%--<fmt:parseDate value="${report.reportDate}" pattern="yyyy-MM-dd" var="reportDay" type="date" />
 <label for="${AttributeConst.REP_DATE.getValue()}">日付</label><br />
 <input type="date" name="${AttributeConst.REP_DATE.getValue()}" id="${AttributeConst.REP_DATE.getValue()}" value="<fmt:formatDate value='${reportDay}' pattern='yyyy-MM-dd' />" />
 <br /><br />
-
-<label>氏名</label><br />
-<c:out value="${sessionScope.login_employee.name}" />
+--%>
+<label>氏名:</label>
+<input type="text" name="${AttributeConst.SEARCH_NAME.getValue()}" id="${AttributeConst.SEARCH_NAME.getValue()}" value="${search_name}" />
 <br /><br />
-
+<%--
 <label for="${AttributeConst.REP_TITLE.getValue()}">タイトル</label><br />
 <input type="text" name="${AttributeConst.REP_TITLE.getValue()}" id="${AttributeConst.REP_TITLE.getValue()}" value="${report.title}" />
 <br /><br />
-
-<label for="${AttributeConst.REP_CONTENT.getValue()}">内容</label><br />
-<textarea  name="${AttributeConst.REP_CONTENT.getValue()}" id="${AttributeConst.REP_CONTENT.getValue()}" rows="10" cols="50">${report.content}</textarea>
-<br /><br />
-
-<input type="hidden" name="${AttributeConst.REP_ID.getValue()}" value="${report.id}" />
-<input type="hidden" name="${AttributeConst.TOKEN.getValue()}" value="${_token}" />
-
-<button type="submit">投稿</button>
+--%>
+<button type="submit">検索</button>

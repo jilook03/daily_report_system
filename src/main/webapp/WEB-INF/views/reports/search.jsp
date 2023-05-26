@@ -4,24 +4,26 @@
 <%@ page import="constants.ForwardConst" %>
 
 <c:set var="actRep" value="${ForwardConst.ACT_REP.getValue()}" />
-<c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue()}" />
-<c:set var="commShow" value="${ForwardConst.CMD_SHOW.getValue()}" />
-<c:set var="commNew" value="${ForwardConst.CMD_NEW.getValue()}" />
-<c:set var="commShowUser" value="${ForwardConst.CMD_SHOW_USER.getValue()}" />
 <c:set var="commSea" value="${ForwardConst.CMD_SEARCH.getValue()}" />
+<c:set var="commShow" value="${ForwardConst.CMD_SHOW.getValue()}" />
+<c:set var="commShowUser" value="${ForwardConst.CMD_SHOW_USER.getValue()}" />
 
 <c:import url="/WEB-INF/views/layout/app.jsp">
     <c:param name="content">
         <c:if test="${flush != null}">
-            <div id="flush_success">
+            <div id="flush_error">
                 <c:out value="${flush}"></c:out>
             </div>
         </c:if>
-        <h2>日報一覧</h2>
-        <p>
-            <a class="btn_link" href="<c:url value='?action=${actRep}&command=${commNew}' />">新規日報の登録</a>&emsp;
-            <a class="btn_link" href="<c:url value='?action=${actRep}&command=${commSea}' />">日報を検索</a>
-        </p>
+
+        <h2>日報検索</h2>
+
+        <form method="POST" action="<c:url value='?action=${actRep}&command=${commSea}' />">
+            <c:import url="_searchForm.jsp" />
+        </form>
+        <p></p>
+
+        <c:if test="${reports != null}">
         <table id="report_list">
             <tbody>
                 <tr>
@@ -42,19 +44,11 @@
                 </c:forEach>
             </tbody>
         </table>
+        <a class="rep_count">全 ${reports_count} 件</a><br />
+        </c:if>
+        <p>
+            <a class="btn_link" href="<c:url value='?action=Report&command=index' />">一覧に戻る</a>
+        </p>
 
-        <div id="pagination">
-            <a class="rep_count">全 ${reports_count} 件</a><br />
-            <c:forEach var="i" begin="1" end="${((reports_count - 1) / maxRow) + 1}" step="1">
-                <c:choose>
-                    <c:when test="${i == page}">
-                        <a class="page_now"><c:out value="${i}" /></a>
-                    </c:when>
-                    <c:otherwise>
-                        <a class="page_link" href="<c:url value='?action=${actRep}&command=${commIdx}&page=${i}' />"><c:out value="${i}" /></a>
-                    </c:otherwise>
-                </c:choose>
-            </c:forEach>
-        </div>
     </c:param>
 </c:import>

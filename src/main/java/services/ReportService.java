@@ -3,6 +3,8 @@ package services;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.Query;
+
 import actions.views.EmployeeConverter;
 import actions.views.EmployeeView;
 import actions.views.ReportConverter;
@@ -40,6 +42,27 @@ public class ReportService extends ServiceBase {
                 .setMaxResults(JpaConst.ROW_PER_PAGE)
                 .getResultList();
         return ReportConverter.toViewList(followReports);
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<ReportView> searchReport(String name) {
+
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT r From Report AS r WHERE ");
+        boolean nameFlg = false;
+
+        if (!"".equals(name) && name != null) {
+            sql.append("r.employee.name LIKE :name ");
+            nameFlg = true;
+        }
+
+        Query query = em.createQuery(sql.toString());
+        if(nameFlg) query.setParameter("name", "%" + name + "%");
+
+        List<Report> reports = query.getResultList();
+
+        return ReportConverter.toViewList(reports);
+
     }
 
     /**

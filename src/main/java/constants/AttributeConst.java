@@ -54,7 +54,9 @@ public enum AttributeConst {
     FOL_REP_COUNT("follow_reports_count"),
     FOL_PAGE("follow_page"),
 
-    IS_FOLLOW("is_follow");
+    IS_FOLLOW("is_follow"),
+
+    SEARCH_NAME("search_name");
 
 
     private final String text;
