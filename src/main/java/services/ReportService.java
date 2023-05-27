@@ -47,48 +47,39 @@ public class ReportService extends ServiceBase {
 
     @SuppressWarnings("unchecked")
     public List<ReportView> searchReport(String name, String from, String to, String title) {
-
         StringBuilder sql = new StringBuilder();
-        sql.append("SELECT r From Report AS r WHERE ");
-        boolean nameFlg = false;
-        boolean fromFlg = false;
-        boolean toFlg = false;
-        boolean titleFlg = false;
-        boolean andFlg = false;
+        sql.append("SELECT r FROM Report r WHERE 1=1 ");
 
-        if (!"".equals(name) && name != null) {
-            sql.append("r.employee.name LIKE :name ");
-            nameFlg = true;
-            andFlg = true;
+        if (name != null && !name.isEmpty()) {
+            sql.append("AND r.employee.name LIKE :name ");
         }
-        if (!"".equals(from) && from != null) {
-            if (andFlg) sql.append(" AND ");
-            sql.append("r.reportDate >= :from ");
-            fromFlg = true;
-            andFlg = true;
+        if (from != null && !from.isEmpty()) {
+            sql.append("AND r.reportDate >= :from ");
         }
-        if (!"".equals(to) && to != null) {
-            if (andFlg) sql.append(" AND ");
-            sql.append("r.reportDate <= :to ");
-            toFlg = true;
-            andFlg = true;
+        if (to != null && !to.isEmpty()) {
+            sql.append("AND r.reportDate <= :to ");
         }
-        if (!"".equals(title) && title != null) {
-            if (andFlg) sql.append(" AND ");
-            sql.append("r.title LIKE :title");
-            titleFlg = true;
+        if (title != null && !title.isEmpty()) {
+            sql.append("AND r.title LIKE :title ");
         }
 
         Query query = em.createQuery(sql.toString());
-        if(nameFlg) query.setParameter("name", "%" + name + "%");
-        if(fromFlg) query.setParameter("from", LocalDate.parse(from));
-        if(toFlg) query.setParameter("to", LocalDate.parse(to));
-        if(titleFlg) query.setParameter("title", "%" + title + "%");
+        if (name != null && !name.isEmpty()) {
+            query.setParameter("name", "%" + name + "%");
+        }
+        if (from != null && !from.isEmpty()) {
+            query.setParameter("from", LocalDate.parse(from));
+        }
+        if (to != null && !to.isEmpty()) {
+            query.setParameter("to", LocalDate.parse(to));
+        }
+        if (title != null && !title.isEmpty()) {
+            query.setParameter("title", "%" + title + "%");
+        }
 
         List<Report> reports = query.getResultList();
 
         return ReportConverter.toViewList(reports);
-
     }
 
     /**

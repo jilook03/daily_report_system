@@ -307,13 +307,10 @@ public class ReportAction extends ActionBase {
     }
 
     public void search() throws ServletException, IOException, ParseException {
-
         String name = getRequestParam(AttributeConst.SEA_NAME);
         String from = getRequestParam(AttributeConst.SEA_DATE_FROM);
         String to = getRequestParam(AttributeConst.SEA_DATE_TO);
         String title = getRequestParam(AttributeConst.SEA_TITLE);
-
-        int page = getPage();
 
         if (!"".equals(name) && name != null || !"".equals(from) && from != null || !"".equals(to) && to != null || !"".equals(title) && title != null) {
 
@@ -337,8 +334,6 @@ public class ReportAction extends ActionBase {
 
         putRequestScope(AttributeConst.SEA_NAME, name);
         putRequestScope(AttributeConst.SEA_TITLE, title);
-        putRequestScope(AttributeConst.PAGE, page);
-        putRequestScope(AttributeConst.MAX_ROW, JpaConst.ROW_PER_PAGE);
 
         forward(ForwardConst.FW_REP_SEARCH);
     }
