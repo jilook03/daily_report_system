@@ -118,6 +118,16 @@ public class ReportAction extends ActionBase {
                 day = LocalDate.parse(getRequestParam(AttributeConst.REP_DATE));
             }
 
+            LocalTime begin = null;
+            if (!getRequestParam(AttributeConst.REP_BEGIN).equals("")) {
+                begin = LocalTime.parse(getRequestParam(AttributeConst.REP_BEGIN));
+            }
+
+            LocalTime finish = null;
+            if (!getRequestParam(AttributeConst.REP_FINISH).equals("")) {
+                finish = LocalTime.parse(getRequestParam(AttributeConst.REP_FINISH));
+            }
+
             //セッションからログイン中の従業員情報を取得
             EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
 
@@ -130,8 +140,8 @@ public class ReportAction extends ActionBase {
                     getRequestParam(AttributeConst.REP_CONTENT),
                     null,
                     null,
-                    LocalTime.parse(getRequestParam(AttributeConst.REP_BEGIN)),
-                    LocalTime.parse(getRequestParam(AttributeConst.REP_FINISH)));
+                    begin,
+                    finish);
 
             //日報情報登録
             List<String> errors = service.create(rv);
@@ -220,6 +230,16 @@ public class ReportAction extends ActionBase {
         //CSRF対策 tokenのチェック
         if (checkToken()) {
 
+            LocalTime begin = null;
+            if (!getRequestParam(AttributeConst.REP_BEGIN).equals("")) {
+                begin = LocalTime.parse(getRequestParam(AttributeConst.REP_BEGIN));
+            }
+
+            LocalTime finish = null;
+            if (!getRequestParam(AttributeConst.REP_FINISH).equals("")) {
+                finish = LocalTime.parse(getRequestParam(AttributeConst.REP_FINISH));
+            }
+
             //idを条件に日報データを取得する
             ReportView rv = service.findOne(toNumber(getRequestParam(AttributeConst.REP_ID)));
 
@@ -227,6 +247,8 @@ public class ReportAction extends ActionBase {
             rv.setReportDate(toLocalDate(getRequestParam(AttributeConst.REP_DATE)));
             rv.setTitle(getRequestParam(AttributeConst.REP_TITLE));
             rv.setContent(getRequestParam(AttributeConst.REP_CONTENT));
+            rv.setBegin(begin);
+            rv.setFinish(finish);
 
             //日報データを更新する
             List<String> errors = service.update(rv);
