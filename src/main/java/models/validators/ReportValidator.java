@@ -1,5 +1,6 @@
 package models.validators;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +32,16 @@ public class ReportValidator {
             errors.add(contentError);
         }
 
+        String beginError = validateBegin(rv.getBegin());
+        if (!beginError.equals("")) {
+            errors.add(beginError);
+        }
+
+        String finishError = validateFinish(rv.getFinish());
+        if (!finishError.equals("")) {
+            errors.add(finishError);
+        }
+
         return errors;
     }
 
@@ -56,6 +67,24 @@ public class ReportValidator {
     private static String validateContent(String content) {
         if (content == null || content.equals("")) {
             return MessageConst.E_NOCONTENT.getMessage();
+        }
+
+        //入力値がある場合は空文字を返却
+        return "";
+    }
+
+    private static String validateBegin(LocalTime begin) {
+        if (begin == null || begin.equals("")) {
+            return MessageConst.E_NOBEGIN.getMessage();
+        }
+
+        //入力値がある場合は空文字を返却
+        return "";
+    }
+
+    private static String validateFinish(LocalTime finish) {
+        if (finish == null || finish.equals("")) {
+            return MessageConst.E_NOFINISH.getMessage();
         }
 
         //入力値がある場合は空文字を返却

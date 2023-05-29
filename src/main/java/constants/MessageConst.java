@@ -25,6 +25,8 @@ public enum MessageConst {
     E_EMP_CODE_EXIST("入力された社員番号の情報は既に存在しています。"),
     E_NOTITLE("タイトルを入力してください。"),
     E_NOCONTENT("内容を入力してください。"),
+    E_NOBEGIN("出勤時刻を入力してください。"),
+    E_NOFINISH("退勤時刻を入力してください。"),
     E_NORESULT("検索対象が見つかりませんでした。");
 
 
