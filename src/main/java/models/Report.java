@@ -2,6 +2,7 @@ package models;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -102,10 +103,10 @@ public class Report {
 
 
     @Column(name = JpaConst.REP_COL_BEGIN, nullable = true)
-    private LocalDateTime begin;
+    private LocalTime begin;
 
 
     @Column(name = JpaConst.REP_COL_FINISH, nullable = true)
-    private LocalDateTime finish;
+    private LocalTime finish;
 
 }

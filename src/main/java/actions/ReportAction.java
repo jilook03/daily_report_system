@@ -3,6 +3,7 @@ package actions;
 import java.io.IOException;
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -86,7 +87,11 @@ public class ReportAction extends ActionBase {
 
         //日報情報の空インスタンスに、日報の日付＝今日の日付を設定する
         ReportView rv = new ReportView();
+        LocalTime begin = LocalTime.parse("09:00:00");
+        LocalTime finish = LocalTime.parse("18:00:00");
         rv.setReportDate(LocalDate.now());
+        rv.setBegin(begin);
+        rv.setFinish(finish);
         putRequestScope(AttributeConst.REPORT, rv); //日付のみ設定済みの日報インスタンス
 
         //新規登録画面を表示
@@ -125,8 +130,8 @@ public class ReportAction extends ActionBase {
                     getRequestParam(AttributeConst.REP_CONTENT),
                     null,
                     null,
-                    null,
-                    null);
+                    LocalTime.parse(getRequestParam(AttributeConst.REP_BEGIN)),
+                    LocalTime.parse(getRequestParam(AttributeConst.REP_FINISH)));
 
             //日報情報登録
             List<String> errors = service.create(rv);

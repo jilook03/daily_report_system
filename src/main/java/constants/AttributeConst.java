@@ -49,6 +49,8 @@ public enum AttributeConst {
     REP_DATE("report_date"),
     REP_TITLE("title"),
     REP_CONTENT("content_msg"),
+    REP_BEGIN("begin"),
+    REP_FINISH("finish"),
 
     //フォロー機能
     FOL_REPORTS("follow_reports"),

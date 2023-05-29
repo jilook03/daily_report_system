@@ -2,6 +2,7 @@ package actions.views;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -53,7 +54,7 @@ public class ReportView {
      */
     private LocalDateTime updatedAt;
 
-    private LocalDateTime begin;
+    private LocalTime begin;
 
-    private LocalDateTime finish;
+    private LocalTime finish;
 }
