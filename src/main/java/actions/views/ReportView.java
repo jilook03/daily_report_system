@@ -52,4 +52,8 @@ public class ReportView {
      * 更新日時
      */
     private LocalDateTime updatedAt;
+
+    private LocalDateTime begin;
+
+    private LocalDateTime finish;
 }

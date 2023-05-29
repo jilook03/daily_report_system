@@ -100,4 +100,12 @@ public class Report {
     @Column(name = JpaConst.REP_COL_UPDATED_AT, nullable = false)
     private LocalDateTime updatedAt;
 
+
+    @Column(name = JpaConst.REP_COL_BEGIN, nullable = true)
+    private LocalDateTime begin;
+
+
+    @Column(name = JpaConst.REP_COL_FINISH, nullable = true)
+    private LocalDateTime finish;
+
 }

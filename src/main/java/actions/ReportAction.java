@@ -124,6 +124,8 @@ public class ReportAction extends ActionBase {
                     getRequestParam(AttributeConst.REP_TITLE),
                     getRequestParam(AttributeConst.REP_CONTENT),
                     null,
+                    null,
+                    null,
                     null);
 
             //日報情報登録
