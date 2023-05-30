@@ -55,6 +55,15 @@ public interface JpaConst {
     String FOL_COL_UPDATED_AT = "updated_at";//更新日時
 
 
+    //いいねテーブル
+    String TABLE_LIK = "likes";
+    //いいねテーブルカラム
+    String LIK_COL_ID = "id";
+    String LIK_COL_EMP = "employee_id";//いいねした従業員のid
+    String LIK_COL_REP = "report_id";//いいねされた日報のid
+    String LIK_COL_CREATED_AT = "created_at";//登録日時
+
+
     //Entity名
     String ENTITY_EMP = "employee"; //従業員
     String ENTITY_REP = "report"; //日報

@@ -102,11 +102,11 @@ public class Report {
     private LocalDateTime updatedAt;
 
 
-    @Column(name = JpaConst.REP_COL_BEGIN, nullable = true)
+    @Column(name = JpaConst.REP_COL_BEGIN, nullable = false)
     private LocalTime begin;
 
 
-    @Column(name = JpaConst.REP_COL_FINISH, nullable = true)
+    @Column(name = JpaConst.REP_COL_FINISH, nullable =false)
     private LocalTime finish;
 
 }
