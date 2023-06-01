@@ -68,11 +68,13 @@ public interface JpaConst {
     String ENTITY_EMP = "employee"; //従業員
     String ENTITY_REP = "report"; //日報
     String ENTITY_FOL = "follow"; //フォロー
+    String ENTITY_LIK = "like";
 
     //JPQL内パラメータ
     String JPQL_PARM_CODE = "code"; //社員番号
     String JPQL_PARM_PASSWORD = "password"; //パスワード
     String JPQL_PARM_EMPLOYEE = "employee"; //従業員
+    String JPQL_PARM_REPORT = "report";
     String JPQL_PARM_FOLLOWFROM = "followFrom";
     String JPQL_PARM_FOLLOWTO = "followTo";
     String JPQL_PARM_FOLLOWLIST = "followList";
@@ -113,8 +115,14 @@ public interface JpaConst {
     String Q_FOL_CHECK_FOLLOW_DEF = "SELECT f FROM Follow f WHERE f.followFromId = :" + JPQL_PARM_FOLLOWFROM + " AND f.followToId = :" + JPQL_PARM_FOLLOWTO;
     //フォローを解除する
     String Q_FOL_UNFOLLOW = ENTITY_FOL + ".unFollow";
-    String Q_FOL_UNFOLLOW_DEF = "DELETE FROM Follow f WHERE f.followFromId = :" + JpaConst.JPQL_PARM_FOLLOWFROM + " AND f.followToId = :" + JpaConst.JPQL_PARM_FOLLOWTO;
+    String Q_FOL_UNFOLLOW_DEF = "DELETE FROM Follow f WHERE f.followFromId = :" + JPQL_PARM_FOLLOWFROM + " AND f.followToId = :" + JPQL_PARM_FOLLOWTO;
     //ログイン中のユーザーがフォローしている全ての従業員のidを取得
     String Q_FOL_GET_FOL = ENTITY_FOL + ".getAllFollow";
     String Q_FOL_GET_FOL_DEF = "SELECT f.followToId FROM Follow f WHERE f.followFromId = :" + JPQL_PARM_FOLLOWFROM;
+    //いいねを解除する
+    String Q_LIK_UNLIKE = ENTITY_LIK + ".unLike";
+    String Q_LIK_UNLIKE_DEF = "DELETE FROM Like l WHERE l.employee = :" + JPQL_PARM_EMPLOYEE + " AND l.report = :" + JPQL_PARM_REPORT;
+    //ログイン中のユーザーがいいねしているレコードを取得
+    String Q_LIK_LIKECHECK = ENTITY_LIK + ".likeCheck";
+    String Q_LIK_LIKECHECK_DEF = "SELECT l FROM Like l WHERE l.employee = :" + JPQL_PARM_EMPLOYEE + " AND l.report = :" + JPQL_PARM_REPORT;
 }
