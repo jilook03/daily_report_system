@@ -125,4 +125,7 @@ public interface JpaConst {
     //ログイン中のユーザーがいいねしているレコードを取得
     String Q_LIK_LIKECHECK = ENTITY_LIK + ".likeCheck";
     String Q_LIK_LIKECHECK_DEF = "SELECT l FROM Like l WHERE l.employee = :" + JPQL_PARM_EMPLOYEE + " AND l.report = :" + JPQL_PARM_REPORT;
+    //日報のいいね数を取得
+    String Q_LIK_LIKECOUNT = ENTITY_LIK + ".likeCount";
+    String Q_LIK_LIKECOUNT_DEF = "SELECT COUNT(l) FROM Like l WHERE l.report = :" + JPQL_PARM_REPORT;
 }

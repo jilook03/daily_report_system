@@ -327,3 +327,9 @@ h3 {
 .heart_like:hover {
   color         : #333333;
 }
+
+.like_count {
+    font-size   : 20pt;
+    color       : #333333;
+    text-align  : center;
+}

@@ -44,6 +44,14 @@ public class LikeService extends ServiceBase {
         return isLike;
     }
 
+    public long likeCount(ReportView rv) {
+        Report rep = ReportConverter.toModel(rv);
+        long count = (long)em.createNamedQuery(JpaConst.Q_LIK_LIKECOUNT)
+                .setParameter(JpaConst.JPQL_PARM_REPORT, rep)
+                .getSingleResult();
+        return count;
+    }
+
     private void createInternal(Like like) {
         em.getTransaction().begin();
         em.persist(like);

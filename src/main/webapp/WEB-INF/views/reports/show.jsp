@@ -20,9 +20,11 @@
                 <c:choose>
                     <c:when test="${is_like == false}">
                         <a class="heart" href="<c:url value='?action=${actRep}&command=${commLik}&id=${report.id}' />" >♡</a>
+                        <a class="like_count" ><c:out value="${like_count}"></c:out></a>
                     </c:when>
                     <c:otherwise>
                         <a class="heart_like" href="<c:url value='?action=${actRep}&command=${commUnLik}&id=${report.id}' />" >♥</a>
+                        <a class="like_count" ><c:out value="${like_count}"></c:out></a>
                     </c:otherwise>
                 </c:choose>
             </div>

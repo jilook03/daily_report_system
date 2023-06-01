@@ -180,11 +180,13 @@ public class ReportAction extends ActionBase {
     public void show() throws ServletException, IOException {
 
         EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
-        //idを条件に日報データを取得する
         ReportView rv = service.findOne(toNumber(getRequestParam(AttributeConst.REP_ID)));
 
         boolean isLike = lService.likeCheck(ev,rv);
+        long likeCount = lService.likeCount(rv);
+
         putRequestScope(AttributeConst.IS_LIKE, isLike);
+        putRequestScope(AttributeConst.LIKE_COUNT, likeCount);
 
         if (rv == null) {
             //該当の日報データが存在しない場合はエラー画面を表示
@@ -378,6 +380,7 @@ public class ReportAction extends ActionBase {
     public void like() throws ServletException, IOException {
         EmployeeView loginEmp = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
         ReportView report = service.findOne(toNumber(getRequestParam(AttributeConst.REP_ID)));
+        lService.unLike(loginEmp, report);
         lService.like(loginEmp, report);
 
         show();
