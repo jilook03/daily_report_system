@@ -17,6 +17,7 @@ import constants.JpaConst;
 import constants.MessageConst;
 import services.EmployeeService;
 import services.FollowService;
+import services.LikeService;
 import services.ReportService;
 
 /**
@@ -28,6 +29,7 @@ public class ReportAction extends ActionBase {
     private ReportService service;
     private EmployeeService eService;
     private FollowService fService;
+    private LikeService lService;
 
     /**
      * メソッドを実行する
@@ -38,12 +40,14 @@ public class ReportAction extends ActionBase {
         service = new ReportService();
         eService = new EmployeeService();
         fService = new FollowService();
+        lService = new LikeService();
 
         //メソッドを実行
         invoke();
         service.close();
         eService.close();
         fService.close();
+        lService.close();
     }
 
     /**
@@ -175,8 +179,12 @@ public class ReportAction extends ActionBase {
      */
     public void show() throws ServletException, IOException {
 
+        EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
         //idを条件に日報データを取得する
         ReportView rv = service.findOne(toNumber(getRequestParam(AttributeConst.REP_ID)));
+
+        boolean isLike = lService.likeCheck(ev,rv);
+        putRequestScope(AttributeConst.IS_LIKE, isLike);
 
         if (rv == null) {
             //該当の日報データが存在しない場合はエラー画面を表示
@@ -323,7 +331,7 @@ public class ReportAction extends ActionBase {
 
     }
 
-    public void unfollow() throws ServletException, IOException {
+    public void unFollow() throws ServletException, IOException {
 
         EmployeeView followFrom = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
         EmployeeView followTo = eService.findOne(Integer.parseInt(getRequestParam(AttributeConst.EMP_ID)));
@@ -365,5 +373,22 @@ public class ReportAction extends ActionBase {
         putRequestScope(AttributeConst.SEA_TITLE, title);
 
         forward(ForwardConst.FW_REP_SEARCH);
+    }
+
+    public void like() throws ServletException, IOException {
+        EmployeeView loginEmp = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
+        ReportView report = service.findOne(toNumber(getRequestParam(AttributeConst.REP_ID)));
+        lService.like(loginEmp, report);
+
+        show();
+
+    }
+
+    public void unLike() throws ServletException, IOException {
+        EmployeeView loginEmp = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
+        ReportView report = service.findOne(toNumber(getRequestParam(AttributeConst.REP_ID)));
+        lService.unLike(loginEmp, report);
+
+        show();
     }
 }
