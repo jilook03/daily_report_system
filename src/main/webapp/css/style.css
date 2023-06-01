@@ -297,3 +297,33 @@ h3 {
   color         : #b04f51;
   background    : #ffffff;
 }
+
+.heart {
+  display       : inline-block;
+  border-radius : 100%;
+  font-size     : 25pt;
+  text-align    : center;
+  cursor        : pointer;
+  padding       : 0px 0px;
+  color         : #333333;
+  line-height   : 1em;
+  border        : 2px solid rgba(255, 255, 255, 0.10);
+}
+.heart:hover {
+  color         : #ff4da6;
+}
+
+.heart_like {
+  display       : inline-block;
+  border-radius : 100%;
+  font-size     : 25pt;
+  text-align    : center;
+  cursor        : pointer;
+  padding       : 0px 0px;
+  color         : #ff4da6;
+  line-height   : 1em;
+  border        : 2px solid rgba(255, 255, 255, 0.10);
+}
+.heart_like:hover {
+  color         : #333333;
+}

@@ -28,8 +28,10 @@ public enum ForwardConst {
     CMD_DESTROY("destroy"),
     CMD_SHOW_USER("showUser"),
     CMD_FOLLOW("follow"),
-    CMD_UNFOLLOW("unfollow"),
+    CMD_UNFOLLOW("unFollow"),
     CMD_SEARCH("search"),
+    CMD_LIKE("like"),
+    CMD_UNLIKE("unLike"),
 
     //jsp
     FW_ERR_UNKNOWN("error/unknown"),

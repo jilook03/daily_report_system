@@ -6,11 +6,27 @@
 <c:set var="actRep" value="${ForwardConst.ACT_REP.getValue()}" />
 <c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue()}" />
 <c:set var="commEdt" value="${ForwardConst.CMD_EDIT.getValue()}" />
+<c:set var="commLik" value="${ForwardConst.CMD_LIKE.getValue()}" />
+<c:set var="commUnLik" value="${ForwardConst.CMD_UNLIKE.getValue()}" />
 
 <c:import url="/WEB-INF/views/layout/app.jsp">
     <c:param name="content">
 
-        <h2>日報 詳細ページ</h2>
+        <div class="user_report_title">
+            <div id="report_list_title">
+                日報 詳細ページ
+            </div>
+            <div>
+                <c:choose>
+                    <c:when test="${is_like == false}">
+                        <a class="heart" href="<c:url value='?action=${actRep}&command=${commLik}&id=${report.id}' />" >♡</a>
+                    </c:when>
+                    <c:otherwise>
+                        <a class="heart_like" href="<c:url value='?action=${actRep}&command=${commUnLik}&id=${report.id}' />" >♥</a>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+        </div>
 
         <table>
             <tbody>

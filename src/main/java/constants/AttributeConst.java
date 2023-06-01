@@ -62,7 +62,9 @@ public enum AttributeConst {
     SEA_NAME("search_name"),
     SEA_DATE_FROM("search_date_from"),
     SEA_DATE_TO("search_date_to"),
-    SEA_TITLE("search_title");
+    SEA_TITLE("search_title"),
+
+    IS_LIKE("is_like");
 
 
 
