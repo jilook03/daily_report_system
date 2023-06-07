@@ -48,7 +48,6 @@ public interface JpaConst {
     //フォローテーブル
     String TABLE_FOL = "follows";//テーブル名
     //フォローテーブルカラム
-    String FOL_COL_ID = "id";//id
     String FOL_COL_FROM_ID = "follow_from_id";//フォローした従業員のid
     String FOL_COL_TO_ID = "follow_to_id";//フォローされた従業員のid
     String FOL_COL_CREATED_AT = "created_at";//登録日時
@@ -58,7 +57,6 @@ public interface JpaConst {
     //いいねテーブル
     String TABLE_LIK = "likes";
     //いいねテーブルカラム
-    String LIK_COL_ID = "id";
     String LIK_COL_EMP = "employee_id";//いいねした従業員のid
     String LIK_COL_REP = "report_id";//いいねされた日報のid
     String LIK_COL_CREATED_AT = "created_at";//登録日時
@@ -121,11 +119,11 @@ public interface JpaConst {
     String Q_FOL_GET_FOL_DEF = "SELECT f.followToId FROM Follow f WHERE f.followFromId = :" + JPQL_PARM_FOLLOWFROM;
     //いいねを解除する
     String Q_LIK_UNLIKE = ENTITY_LIK + ".unLike";
-    String Q_LIK_UNLIKE_DEF = "DELETE FROM Like l WHERE l.employee = :" + JPQL_PARM_EMPLOYEE + " AND l.report = :" + JPQL_PARM_REPORT;
+    String Q_LIK_UNLIKE_DEF = "DELETE FROM Like l WHERE l.employeeId = :" + JPQL_PARM_EMPLOYEE + " AND l.reportId = :" + JPQL_PARM_REPORT;
     //ログイン中のユーザーがいいねしているレコードを取得
     String Q_LIK_LIKECHECK = ENTITY_LIK + ".likeCheck";
-    String Q_LIK_LIKECHECK_DEF = "SELECT l FROM Like l WHERE l.employee = :" + JPQL_PARM_EMPLOYEE + " AND l.report = :" + JPQL_PARM_REPORT;
+    String Q_LIK_LIKECHECK_DEF = "SELECT l FROM Like l WHERE l.employeeId = :" + JPQL_PARM_EMPLOYEE + " AND l.reportId = :" + JPQL_PARM_REPORT;
     //日報のいいね数を取得
     String Q_LIK_LIKECOUNT = ENTITY_LIK + ".likeCount";
-    String Q_LIK_LIKECOUNT_DEF = "SELECT COUNT(l) FROM Like l WHERE l.report = :" + JPQL_PARM_REPORT;
+    String Q_LIK_LIKECOUNT_DEF = "SELECT COUNT(l) FROM Like l WHERE l.reportId = :" + JPQL_PARM_REPORT;
 }

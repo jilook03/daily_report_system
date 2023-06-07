@@ -182,18 +182,16 @@ public class ReportAction extends ActionBase {
         EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
         ReportView rv = service.findOne(toNumber(getRequestParam(AttributeConst.REP_ID)));
 
-        boolean isLike = lService.likeCheck(ev,rv);
-        long likeCount = lService.likeCount(rv);
-
-        putRequestScope(AttributeConst.IS_LIKE, isLike);
-        putRequestScope(AttributeConst.LIKE_COUNT, likeCount);
-
         if (rv == null) {
             //該当の日報データが存在しない場合はエラー画面を表示
             forward(ForwardConst.FW_ERR_UNKNOWN);
 
         } else {
+            boolean isLike = lService.likeCheck(ev.getId(),rv.getId());
+            long likeCount = lService.likeCount(rv.getId());
 
+            putRequestScope(AttributeConst.IS_LIKE, isLike);
+            putRequestScope(AttributeConst.LIKE_COUNT, likeCount);
             putRequestScope(AttributeConst.REPORT, rv); //取得した日報データ
 
             //詳細画面を表示
@@ -380,8 +378,8 @@ public class ReportAction extends ActionBase {
     public void like() throws ServletException, IOException {
         EmployeeView loginEmp = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
         ReportView report = service.findOne(toNumber(getRequestParam(AttributeConst.REP_ID)));
-        lService.unLike(loginEmp, report);
-        lService.like(loginEmp, report);
+        lService.unLike(loginEmp.getId(), report.getId());
+        lService.like(loginEmp.getId(), report.getId());
 
         show();
 
@@ -390,7 +388,7 @@ public class ReportAction extends ActionBase {
     public void unLike() throws ServletException, IOException {
         EmployeeView loginEmp = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
         ReportView report = service.findOne(toNumber(getRequestParam(AttributeConst.REP_ID)));
-        lService.unLike(loginEmp, report);
+        lService.unLike(loginEmp.getId(), report.getId());
 
         show();
     }
