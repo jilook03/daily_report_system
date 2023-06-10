@@ -16,18 +16,20 @@
             <div id="report_list_title">
                 日報 詳細ページ
             </div>
-            <div>
-                <c:choose>
-                    <c:when test="${is_like == false}">
-                        <a class="heart" href="<c:url value='?action=${actRep}&command=${commLik}&id=${report.id}' />" >♡</a>
-                        <a class="like_count" ><c:out value="${like_count}"></c:out></a>
-                    </c:when>
-                    <c:otherwise>
-                        <a class="heart_like" href="<c:url value='?action=${actRep}&command=${commUnLik}&id=${report.id}' />" >♥</a>
-                        <a class="like_count" ><c:out value="${like_count}"></c:out></a>
-                    </c:otherwise>
-                </c:choose>
-            </div>
+            <c:if test="${sessionScope.login_employee.id != report.employee.id}">
+                <div>
+                    <c:choose>
+                        <c:when test="${is_like == false}">
+                            <a class="heart" href="<c:url value='?action=${actRep}&command=${commLik}&id=${report.id}' />" >♡</a>
+                            <a class="like_count" ><c:out value="${like_count}"></c:out></a>
+                        </c:when>
+                        <c:otherwise>
+                            <a class="heart_like" href="<c:url value='?action=${actRep}&command=${commUnLik}&id=${report.id}' />" >♥</a>
+                            <a class="like_count" ><c:out value="${like_count}"></c:out></a>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+            </c:if>
         </div>
 
         <table>
